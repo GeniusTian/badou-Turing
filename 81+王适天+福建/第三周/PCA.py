@@ -22,7 +22,7 @@ class PCA:
         X = X - X.mean(axis=0)
         self.covariance = np.dot(X.T, X) / (X.shape[0] - 1)
         eig_values, eig_vectors = np.linalg.eig(self.covariance)
-        idx = np.argsort(eig_values)
+        idx = np.argsort(eig_values)[::-1]
         self.components_ = eig_vectors[:, idx[:self.n_components]]
         return np.dot(X, self.components_)
 
@@ -31,4 +31,3 @@ if __name__ == '__main__':
     iris = datasets.load_iris()
     pca = PCA(2)
     transform = pca.fit_transform(iris.data)
-    print(transform)
